@@ -17,37 +17,38 @@ export const App = () => {
     number: '',
   });
 
+  const addContact = () => {
+    const newContact = {
+      id: nanoid(),
+      name: state.name,
+      number: state.number,
+    };
+
+    setState(prevState => ({
+      contacts: [...prevState.contacts, newContact],
+      name: '',
+      number: '',
+    }));
+  };
+
+  const handleFilterChange = filterValue => {
+    setState({ ...state, filter: filterValue });
+  };
+
   return (
     <div>
       <h1>Phonebook</h1>
-      <div>
-        <p>Name</p>
-        <Filter></Filter>
-        <input
-          type="text"
-          name="name"
-          pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-          title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-          required
-        />
+      <ContactForm
+        name={state.name}
+        number={state.number}
+        onNameChange={e => setState({ ...state, name: e.target.value })}
+        onNumberChange={e => setState({ ...state, number: e.target.value })}
+        onAddContact={addContact}
+      />
 
-        <input
-          type="tel"
-          name="number"
-          pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-          title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-          required
-        />
-        <button>Add contact</button>
-      </div>
-      <div>
-        <h2>Contacts</h2>
-        <p>Find contacts by name</p>
-        <input type="text" name="filter" />
-        <li>Eden Clements: 459-12-56</li>
-        <li>Hermione Kline: 443-89-12</li>
-        <li>Rosie Simpson: 645-17-79</li>
-      </div>
+      <h2>Contacts</h2>
+      <Filter filter={state.filter} onFilterChange={handleFilterChange} />
+      <ContactList contacts={state.contacts} filter={state.filter} />
     </div>
   );
 };

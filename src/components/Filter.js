@@ -1,15 +1,15 @@
-// import PropTypes from 'prop-types';
+import React from 'react';
 
-// import { FilterContainer } from './Filter.styled.js';
-
-export default function Filter() {
+export default function Filter({ filter, onFilterChange }) {
   return (
     <div>
-      <p>"Hola"</p>
+      <label htmlFor="filter">Filter Contacts:</label>
+      <input
+        type="text"
+        id="filter"
+        value={filter}
+        onChange={e => onFilterChange(e.target.value)}
+      />
     </div>
   );
 }
-
-// Filter.propTypes = {
-//   name: PropTypes.string.isRequired,
-// };

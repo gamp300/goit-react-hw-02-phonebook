@@ -2,37 +2,45 @@ import React, { useState } from 'react';
 import { nanoid } from 'nanoid';
 import ContactForm from './ContactForm';
 import ContactList from './ContactList';
-import Filter from './Filter';
 
 export const App = () => {
   const [state, setState] = useState({
-    contacts: [
-      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-      { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
-    ],
+    contacts: [],
     filter: '',
     name: '',
     number: '',
   });
 
-  const addContact = () => {
-    const newContact = {
-      id: nanoid(),
-      name: state.name,
-      number: state.number,
-    };
-
-    setState(prevState => ({
-      contacts: [...prevState.contacts, newContact],
-      name: '',
-      number: '',
-    }));
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setState((prevState) => ({ ...prevState, [name]: value }));
   };
 
-  const handleFilterChange = filterValue => {
-    setState({ ...state, filter: filterValue });
+  const handleAddContact = () => {
+    const { contacts, name, number } = state;
+    if (name.trim() === '' || number.trim() === '') return;
+
+    const newContact = {
+      id: nanoid(),
+      name,
+      number,
+    };
+
+    if (contacts.some((contact) => contact.name.toLowerCase() === name.toLowerCase())) {
+      alert('Contact already exists!');
+    } else {
+      setState((prevState) => ({
+        contacts: [...prevState.contacts, newContact],
+        name: '',
+        number: '',
+      }));
+    }
+  };
+
+  const handleDeleteContact = (id) => {
+    setState((prevState) => ({
+      contacts: prevState.contacts.filter((contact) => contact.id !== id),
+    }));
   };
 
   return (
@@ -41,14 +49,12 @@ export const App = () => {
       <ContactForm
         name={state.name}
         number={state.number}
-        onNameChange={e => setState({ ...state, name: e.target.value })}
-        onNumberChange={e => setState({ ...state, number: e.target.value })}
-        onAddContact={addContact}
+        handleInputChange={handleInputChange}
+        handleAddContact={handleAddContact}
       />
 
       <h2>Contacts</h2>
-      <Filter filter={state.filter} onFilterChange={handleFilterChange} />
-      <ContactList contacts={state.contacts} filter={state.filter} />
+      <ContactList contacts={state.contacts} handleDeleteContact={handleDeleteContact} />
     </div>
   );
 };

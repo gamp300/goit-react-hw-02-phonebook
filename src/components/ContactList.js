@@ -1,15 +1,16 @@
-export default function ContactList({ contacts, filter }) {
-  const filteredContacts = contacts.filter(contact =>
-    contact.name.toLowerCase().includes(filter.toLowerCase())
-  );
+import React from 'react';
 
+const ContactList = ({ contacts, handleDeleteContact }) => {
   return (
     <ul>
-      {filteredContacts.map(contact => (
+      {contacts.map((contact) => (
         <li key={contact.id}>
-          {contact.name} - {contact.number}
+          {contact.name} - {contact.number}{' '}
+          <button onClick={() => handleDeleteContact(contact.id)}>Delete</button>
         </li>
       ))}
     </ul>
   );
-}
+};
+
+export default ContactList;

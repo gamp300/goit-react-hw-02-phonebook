@@ -1,15 +1,16 @@
 import React from 'react';
 
-export default function Filter({ filter, onFilterChange }) {
+const Filter = ({ filter, handleFilterChange }) => {
   return (
     <div>
-      <label htmlFor="filter">Filter Contacts:</label>
       <input
         type="text"
-        id="filter"
+        placeholder="Search contacts"
         value={filter}
-        onChange={e => onFilterChange(e.target.value)}
+        onChange={handleFilterChange}
       />
     </div>
   );
-}
+};
+
+export default Filter;

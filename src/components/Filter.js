@@ -4,7 +4,7 @@ const Filter = ({ filter, handleFilterChange }) => {
   return (
     <div>
       <label>
-        Filter contacts:
+        Find contacts by name
         <input type="text" value={filter || ''} onChange={handleFilterChange} />
       </label>
     </div>

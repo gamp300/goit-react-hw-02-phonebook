@@ -3,7 +3,7 @@ import { nanoid } from 'nanoid';
 import ContactForm from './ContactForm';
 import ContactList from './ContactList';
 import Filter from './Filter';
-// import FilterStyled from './Filter.styled';
+import { FilterContainer } from './Filter.styled';
 
 export const App = () => {
   const [state, setState] = useState({
@@ -67,23 +67,25 @@ export const App = () => {
 
   return (
     <div>
-      <h1>Phonebook</h1>
-      <ContactForm
-        name={state.name}
-        number={state.number}
-        handleInputChange={handleInputChange}
-        handleAddContact={handleAddContact}
-      />
-      <h2>Contacts</h2>
-      <ContactList
-        contacts={state.contacts}
-        handleDeleteContact={handleDeleteContact}
-      />
-      <Filter filter={state.filter} handleFilterChange={handleFilterChange} />{' '}
-      <ContactList
-        contacts={filteredContacts}
-        handleDeleteContact={handleDeleteContact}
-      />
+      <FilterContainer>
+        <h1>Phonebook</h1>
+        <ContactForm
+          name={state.name}
+          number={state.number}
+          handleInputChange={handleInputChange}
+          handleAddContact={handleAddContact}
+        />
+        <h2>Contacts</h2>
+        <ContactList
+          contacts={state.contacts}
+          handleDeleteContact={handleDeleteContact}
+        />
+        <Filter filter={state.filter} handleFilterChange={handleFilterChange} />{' '}
+        <ContactList
+          contacts={filteredContacts}
+          handleDeleteContact={handleDeleteContact}
+        />
+      </FilterContainer>
     </div>
   );
 };

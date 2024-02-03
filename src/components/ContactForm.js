@@ -1,9 +1,10 @@
 import React from 'react';
+import { Button, Label } from './Filter.styled';
 
 const ContactForm = ({ name, number, handleInputChange, handleAddContact }) => {
   return (
     <div>
-      <label>
+      <Label>
         Name
         <input
           type="text"
@@ -14,9 +15,9 @@ const ContactForm = ({ name, number, handleInputChange, handleAddContact }) => {
           value={name}
           onChange={handleInputChange}
         />
-      </label>
+      </Label>
 
-      <label>
+      <Label>
         Number
         <input
           type="tel"
@@ -27,9 +28,9 @@ const ContactForm = ({ name, number, handleInputChange, handleAddContact }) => {
           value={number}
           onChange={handleInputChange}
         />
-      </label>
+      </Label>
 
-      <button onClick={handleAddContact}>Add Contact</button>
+      <Button onClick={handleAddContact}>Add Contact</Button>
     </div>
   );
 };

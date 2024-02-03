@@ -1,12 +1,13 @@
 import React from 'react';
+import { Contacts } from './Filter.styled';
 
 const Filter = ({ filter, handleFilterChange }) => {
   return (
     <div>
-      <label>
+      <Contacts>
         Find contacts by name
         <input type="text" value={filter || ''} onChange={handleFilterChange} />
-      </label>
+      </Contacts>
     </div>
   );
 };

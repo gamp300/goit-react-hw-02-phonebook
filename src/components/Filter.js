@@ -1,15 +1,22 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Contacts } from './Filter.styled';
 
-const Filter = ({ filter, handleFilterChange }) => {
-  return (
-    <div>
-      <Contacts>
-        Find contacts by name
-        <input type="text" value={filter || ''} onChange={handleFilterChange} />
-      </Contacts>
-    </div>
-  );
-};
+class Filter extends Component {
+  render() {
+    const { filter, handleFilterChange } = this.props;
+    return (
+      <div>
+        <Contacts>
+          Buscar contactos por nombre
+          <input
+            type="text"
+            value={filter || ''}
+            onChange={handleFilterChange}
+          />
+        </Contacts>
+      </div>
+    );
+  }
+}
 
 export default Filter;
